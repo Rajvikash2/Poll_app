@@ -1,4 +1,6 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
 let fields ={question : '', answerA:'',answerB:''};
 let error ={question : '', answerA:'',answerB:''};
 let valid = false;
@@ -12,14 +14,14 @@ const handleSub = () => {
     else{
         error.question=''
     }
-    if(fields.answerA.trim().length < 5){
+    if(fields.answerA.trim().length < 1){
         valid = false;
         error.answerA='*Answer A must be atleast 1 word';
     }
     else{
         error.answerA=''
     }
-    if(fields.answerB.trim().length < 5){
+    if(fields.answerB.trim().length < 1){
         valid = false;
         error.answerB='*Answer B must be atleast 1 word';
     }
@@ -27,7 +29,8 @@ const handleSub = () => {
         error.answerB=''
     }
     if(valid){
-        alert('Form Submitted Successfully');
+        let poll = {...fields, votesA: 0, votesB: 0, id: Math.random() };
+        dispatch('add',poll);
     }
   
 }
