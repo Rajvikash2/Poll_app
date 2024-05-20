@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    import PollStore from "../stores/Store";
     const dispatch = createEventDispatcher();
 let fields ={question : '', answerA:'',answerB:''};
 let error ={question : '', answerA:'',answerB:''};
@@ -30,7 +31,16 @@ const handleSub = () => {
     }
     if(valid){
         let poll = {...fields, votesA: 0, votesB: 0, id: Math.random() };
-        dispatch('add',poll);
+        // we have to save the data to the store
+        // the update() method is used for it
+        PollStore.update((currentData)=>{
+            //currentData is the data already stored in the store
+            return [poll,...currentData];
+        
+        })
+
+        //dispatch only the add func sice data is now updated to store
+        dispatch('add');
     }
   
 }

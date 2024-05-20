@@ -2,6 +2,7 @@
     <h1>
         <img src="/img/head.png" alt="Poll logo">
     </h1>
+    <h1 class="heading">My Poll App</h1>
 </header>
 
 <style>
@@ -17,4 +18,8 @@
     max-width: 180px;
     
  }
+   .heading{
+      text-align: center;
+      color: #555;
+   }
 </style>
